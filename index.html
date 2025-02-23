@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<!--
+ Code written by Chirrenthen
+ Visit my Github page for more details (github.com/chirrenthen)
+ This is an Open-source Project
+ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NeoBank | Chirrenthen</title>
+  <!-- Google Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Main Styles -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- Captcha Styles -->
+  <link rel="stylesheet" href="captcha.css" />
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <!-- Icons -->
+  <link rel="shortcut icon" href="Images/neobank.png" sizes="152x152">
+</head>
+<body>
+  <!-- ========== AUTH PAGES ========== -->
+  <div id="login-page" class="auth-page">
+    <div class="auth-container">
+      <h1>Bank Login</h1>
+      <form id="login-form">
+        <label for="login-account">Account Number</label>
+        <input type="text" id="login-account" placeholder="Enter account number" required />
+        <label for="login-userid">User ID</label>
+        <input type="text" id="login-userid" placeholder="Enter user ID" required />
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" placeholder="Enter password" required />
+        <!-- QR Code for Login -->
+        <div class="qr-container">
+          <img id="login-qr" src="" alt="QR Code" />
+        </div>
+        <label for="login-qr-input">QR Code Verification</label>
+        <input type="text" id="login-qr-input" placeholder="Enter scanned code" required />
+        <button type="submit" class="submit-btn">Login</button>
+      </form>
+      <center><p><a href="#" id="forgot-password-link">Forgot Password?</a></p></center>
+      <p>Don’t have an account? <a href="#" id="go-to-signup">Sign Up</a></p>
+    </div>
+  </div>
+
+  <div id="signup-page" class="auth-page" style="display:none;">
+    <div class="auth-container">
+      <h1>Bank Sign Up</h1>
+      <form id="signup-form">
+        <label for="signup-account">Account Number</label>
+        <input type="text" id="signup-account" placeholder="Auto-generated" readonly />
+        <label for="signup-userid">User ID</label>
+        <input type="text" id="signup-userid" placeholder="Choose a user ID" required />
+        <label for="signup-password">Password</label>
+        <input type="password" id="signup-password" placeholder="Enter password" required />
+        <div class="qr-container">
+          <img id="signup-qr" src="" alt="QR Code" />
+        </div>
+        <label for="signup-qr-input">QR Code Verification</label>
+        <input type="text" id="signup-qr-input" placeholder="Enter scanned code" required />
+        <button type="submit" class="submit-btn">Sign Up</button>
+      </form>
+      <p>Already have an account? <a href="#" id="go-to-login">Login</a></p>
+    </div>
+  </div>
+
+  <!-- Forgot Password Modal -->
+  <div id="forgot-password-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Forgot Password</h2>
+      <p>Enter your Account Number and User ID to reset.</p>
+      <input type="text" id="forgot-account" placeholder="Account Number" />
+      <input type="text" id="forgot-userid" placeholder="User ID" />
+      <button id="forgot-password-submit" class="submit-btn">Reset Password</button>
+      <button class="close-section">Close</button>
+    </div>
+  </div>
+
+  <!-- ========== DASHBOARD SECTION ========== -->
+  <section class="dashboard" id="dashboard-section" style="display:none;">
+    <!-- Sidebar Navigation -->
+    <nav id="sidebar">
+      <div class="logo-name">
+        <div class="logo-image">
+          <img src="images/logo.png" alt="Bank Logo" />
+        </div>
+        <span class="logo_name">NeoBank</span>
+      </div>
+      <div class="menu-items">
+        <ul class="nav-links" id="user-nav">
+          <li><a href="#" data-section="overview">
+            <i class="uil uil-estate"></i>
+            <span class="link-name">Dashboard</span>
+          </a></li>
+          <li><a href="#" data-section="deposit">
+            <i class="uil uil-arrow-circle-down"></i>
+            <span class="link-name">Deposit</span>
+          </a></li>
+          <li><a href="#" data-section="withdraw">
+            <i class="uil uil-arrow-circle-up"></i>
+            <span class="link-name">Withdraw</span>
+          </a></li>
+          <li><a href="#" data-section="transfer">
+            <i class="uil uil-transfer"></i>
+            <span class="link-name">Transfer</span>
+          </a></li>
+          <li><a href="#" data-section="history">
+            <i class="uil uil-history"></i>
+            <span class="link-name">History</span>
+          </a></li>
+          <li><a href="#" data-section="manage">
+            <i class="uil uil-user"></i>
+            <span class="link-name">Manage Account</span>
+          </a></li>
+          <!-- Admin Panel -->
+          <li id="admin-view" style="display:none;">
+            <a href="#" data-section="admin">
+              <i class="uil uil-users-alt"></i>
+              <span class="link-name">Admin Panel</span>
+            </a>
+          </li>
+        </ul>
+        <ul class="logout-mode">
+          <li><a href="#" id="nav-logout">
+            <i class="uil uil-signout"></i>
+            <span class="link-name">Logout</span>
+          </a></li>
+          <li class="mode">
+            <a href="#" id="dark-mode-toggle">
+              <i class="uil uil-moon"></i>
+              <span class="link-name">Dark Mode</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="dash-content">
+      <div class="top">
+        <i class="uil uil-bars sidebar-toggle"></i>
+        <div class="search-box">
+          <i class="uil uil-search"></i>
+          <input type="text" id="transaction-search" placeholder="Search transactions..." />
+        </div>
+        <img src="images/profile.png" alt="User Profile" id="profile-img" />
+      </div>
+
+      <!-- Operation Container -->
+      <div id="operation-container">
+        <!-- Overview Section (includes the banking card) -->
+        <section id="overview-section" class="operation-section">
+          <div class="overview">
+            <div class="title">
+              <i class="uil uil-tachometer-fast-alt"></i>
+              <span class="text">Dashboard</span>
+            </div>
+            <div class="boxes">
+              <div class="box box1">
+                <i class="uil uil-wallet"></i>
+                <span class="text">Balance</span>
+                <span class="number" id="balance-display">$0.00</span>
+              </div>
+              <div class="box box2">
+                <i class="uil uil-arrow-circle-down"></i>
+                <span class="text">Last Deposit</span>
+                <span class="number" id="last-deposit">$0.00</span>
+              </div>
+              <div class="box box3">
+                <i class="uil uil-arrow-circle-up"></i>
+                <span class="text">Last Withdrawal</span>
+                <span class="number" id="last-withdraw">$0.00</span>
+              </div>
+            </div>
+          </div>
+          <!-- Banking Card (Flipping Card) -->
+          <section class="card-flip">
+            <div class="container">
+              <div class="card front-face">
+                <header>
+                  <span class="logo">
+                    <img src="images/logo.png" alt="Bank Card Logo" />
+                    <h5>NeoBank</h5>
+                  </span>
+                  <img src="images/chip.png" alt="Chip" class="chip" />
+                </header>
+                <div class="card-details">
+                  <div class="name-number">
+                    <h6>Card Number</h6>
+                    <h5 class="number" id="card-number">XXXX XXXX XXXX XXXX</h5>
+                    <h5 class="name" id="card-holder">Your Name</h5>
+                  </div>
+                  <div class="valid-date">
+                    <h6>Valid Thru</h6>
+                    <h5>05/28</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="card back-face">
+                <h6>For customer service, please contact support@neobank.com or call +1-800-555-1234</h6>
+                <span class="magnetic-strip"></span>
+                <div class="signature"><i>005</i></div>
+                <h5>Secure Banking. Professional Service.</h5>
+              </div>
+            </div>
+          </section>
+          <!-- Transactions Chart -->
+          <div class="chart-container">
+            <canvas id="transactions-chart"></canvas>
+          </div>
+          <!-- Recent Activity -->
+          <div class="activity">
+            <div class="title">
+              <i class="uil uil-clock-three"></i>
+              <span class="text">Recent Activity</span>
+            </div>
+            <div class="activity-data" id="activity-data">
+              <!-- Dynamically injected -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Deposit Section -->
+        <section id="deposit-section" class="operation-section" style="display:none;">
+          <h2>Deposit Money</h2>
+          <form id="deposit-form">
+            <div class="form-group">
+              <label for="deposit-amount">Amount</label>
+              <input type="number" id="deposit-amount" placeholder="Enter deposit amount" min="1" required />
+            </div>
+            <div class="form-group captcha-group">
+              <label>Captcha Verification</label>
+              <div class="captcha-wrapper">
+                <div class="captcha-img" id="deposit-captcha-display">
+                  <span class="captcha"></span>
+                </div>
+                <button type="button" class="reload-btn" id="deposit-reload-btn"><i class="fas fa-redo-alt"></i></button>
+              </div>
+              <input type="text" id="deposit-captcha-input" placeholder="Enter captcha" required />
+            </div>
+            <button type="submit" class="submit-btn">Deposit</button>
+          </form>
+        </section>
+
+        <!-- Withdraw Section -->
+        <section id="withdraw-section" class="operation-section" style="display:none;">
+          <h2>Withdraw Money</h2>
+          <form id="withdraw-form">
+            <div class="form-group">
+              <label for="withdraw-amount">Amount</label>
+              <input type="number" id="withdraw-amount" placeholder="Enter withdrawal amount" min="1" required />
+            </div>
+            <div class="form-group captcha-group">
+              <label>Captcha Verification</label>
+              <div class="captcha-wrapper">
+                <div class="captcha-img" id="withdraw-captcha-display">
+                  <span class="captcha"></span>
+                </div>
+                <button type="button" class="reload-btn" id="withdraw-reload-btn"><i class="fas fa-redo-alt"></i></button>
+              </div>
+              <input type="text" id="withdraw-captcha-input" placeholder="Enter captcha" required />
+            </div>
+            <button type="submit" class="submit-btn">Withdraw</button>
+          </form>
+        </section>
+
+        <!-- Transfer Section -->
+        <section id="transfer-section" class="operation-section" style="display:none;">
+          <h2>Transfer Money</h2>
+          <form id="transfer-form">
+            <div class="form-group">
+              <label for="transfer-recipient">Recipient Account Number</label>
+              <input type="text" id="transfer-recipient" placeholder="Enter recipient account" required />
+            </div>
+            <div class="form-group">
+              <label for="transfer-amount">Amount</label>
+              <input type="number" id="transfer-amount" placeholder="Enter amount" min="1" required />
+            </div>
+            <div class="form-group">
+              <label for="transfer-password">Your Password</label>
+              <input type="password" id="transfer-password" placeholder="Enter your password" required />
+            </div>
+            <div class="form-group captcha-group">
+              <label>Captcha Verification</label>
+              <div class="captcha-wrapper">
+                <div class="captcha-img" id="transfer-captcha-display">
+                  <span class="captcha"></span>
+                </div>
+                <button type="button" class="reload-btn" id="transfer-reload-btn"><i class="fas fa-redo-alt"></i></button>
+              </div>
+              <input type="text" id="transfer-captcha-input" placeholder="Enter captcha" required />
+            </div>
+            <button type="submit" class="submit-btn">Transfer</button>
+          </form>
+        </section>
+
+        <!-- Transaction History Section -->
+        <section id="history-section" class="operation-section" style="display:none;">
+          <h2>Transaction History</h2>
+          <div class="table-container">
+            <table id="transaction-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+          <button id="download-history" class="submit-btn">Download History CSV</button>
+        </section>
+
+        <!-- Manage Account Section -->
+        <section id="manage-section" class="operation-section" style="display:none;">
+          <h2>Manage Account</h2>
+          <div class="manage-container">
+            <fieldset class="manage-fieldset">
+              <legend>Change Username</legend>
+              <div class="form-group">
+                <label for="old-username-pwd">Current Password</label>
+                <input type="password" id="old-username-pwd" placeholder="Enter current password" required>
+              </div>
+              <div class="form-group">
+                <label for="new-username">New Username</label>
+                <input type="text" id="new-username" placeholder="Enter new username" required>
+              </div>
+              <button type="button" id="change-username-btn" class="submit-btn">Change Username</button>
+            </fieldset>
+            <fieldset class="manage-fieldset">
+              <legend>Change Password</legend>
+              <div class="form-group">
+                <label for="old-password">Current Password</label>
+                <input type="password" id="old-password" placeholder="Enter current password" required>
+              </div>
+              <div class="form-group">
+                <label for="new-password">New Password</label>
+                <input type="password" id="new-password" placeholder="Enter new password" required>
+              </div>
+              <button type="button" id="change-password-btn" class="submit-btn">Change Password</button>
+            </fieldset>
+            <fieldset class="manage-fieldset">
+              <legend>Delete Account</legend>
+              <div class="form-group">
+                <label for="delete-pwd">Current Password</label>
+                <input type="password" id="delete-pwd" placeholder="Enter current password" required>
+              </div>
+              <div class="form-group">
+                <label for="delete-reason">Reason for Deletion</label>
+                <textarea id="delete-reason" placeholder="Enter reason for deletion" required></textarea>
+              </div>
+              <button type="button" id="delete-account-btn" class="submit-btn delete-btn">Delete Account</button>
+            </fieldset>
+          </div>
+        </section>
+
+        <!-- Admin Panel Section -->
+        <section id="admin-section" class="operation-section" style="display:none;">
+          <h2>Admin Panel – User Management</h2>
+          <div id="admin-user-container">
+            <ul id="users-list">
+              <!-- Dynamically populated user list -->
+            </ul>
+            <div class="admin-manage">
+              <fieldset class="manage-fieldset">
+                <legend>Manage Selected User</legend>
+                <div class="form-group">
+                  <label for="admin-new-username">New Username</label>
+                  <input type="text" id="admin-new-username" placeholder="Enter new username">
+                </div>
+                <button type="button" id="admin-change-username-btn" class="submit-btn">Change Username</button>
+                <div class="form-group">
+                  <label for="admin-new-password">New Password</label>
+                  <input type="text" id="admin-new-password" placeholder="Enter new password">
+                </div>
+                <button type="button" id="admin-change-password-btn" class="submit-btn">Change Password</button>
+                <div class="form-group">
+                  <label for="admin-delete-reason">Reason for Deletion</label>
+                  <textarea id="admin-delete-reason" placeholder="Enter reason for deletion"></textarea>
+                </div>
+                <button type="button" id="admin-delete-account-btn" class="submit-btn delete-btn">Delete User</button>
+              </fieldset>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <center><p>Code Crafted with 🩵 by Chirrenthen</p></center>
+  </footer>
+  
+  <!-- ========== Service Worker Registration ========== -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(registration => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(error => {
+          console.log('Service Worker registration failed:', error);
+        });
+    }
+  </script>
+  
+  <!-- ========== SCRIPTS ========== -->
+  <script src="script.js"></script>
+</body>
+</html>

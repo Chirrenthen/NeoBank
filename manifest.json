@@ -1,0 +1,21 @@
+{
+    "name": "NeoBank by Chirrenthen",
+    "short_name": "NeoBank",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#3dc5f7",
+    "icons": [
+      {
+        "src": "Images/neobank.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "Images/neobank.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  
