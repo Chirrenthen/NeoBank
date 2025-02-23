@@ -52,5 +52,5 @@ With PWA support, Chrome will show an install icon in the address bar so you can
 Contributions are welcome! If you'd like to add features, fix bugs, or improve the documentation, please fork the repository and create a pull request. Don't forget to leave a star if you like the project!
 
 ## License 📄
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the Creative Commons Zero v1.0 Universal License. See the LICENSE file for details.
 
