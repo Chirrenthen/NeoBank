@@ -7,7 +7,7 @@
 /*********************************
  * Utility Functions
  *********************************/
-alert("Code Crafted with 🩵 by Chirrenthen\nFor more details visit my Github page\nDon't forget to leave a star\nSign-Up and enjoy the system!\nIf needed resize the screen to 67%");
+alert("Code Crafted with 🩵 by Chirrenthen\nDownload the Code files for the project to work properly\nResize the screen to 67%\nFor more details contact 'chirrenthen13@gmail.com'");
 function generateRandomCode() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
